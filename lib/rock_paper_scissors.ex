@@ -2,14 +2,18 @@ defmodule Games.RockPaperScissors do
   def play do
     choices = ["rock", "paper", "scissors"]
     ai_choice = Enum.random choices
-    user_choice = IO.gets("Choose rock, paper, or scissors: ")
 
-    # Cleanse input
-    user_choice = String.trim(user_choice)
+    # Get input from user via IEX shell
+    user_choice = String.trim IO.gets("Choose rock, paper, or scissors: ")
 
     # Check if input is in options
-    unless Enum.member?(choices, user_choice), do: raise "Invalid choice."
+    case Games.UserInput.validate(user_choice, choices) do
+      true -> calculate_victor(user_choice, ai_choice)
+      _ -> play()
+    end
+  end
 
+  defp calculate_victor(user_choice, ai_choice) do
     IO.puts "AI picked #{ai_choice}."
     IO.puts "You picked #{user_choice}."
 
