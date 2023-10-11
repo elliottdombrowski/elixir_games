@@ -1,35 +1,38 @@
 defmodule Games.Wordle do
-  def play do
-    play(1)
-  end
-  def play(attempt) do
-    IO.puts "ATTEMPT => #{attempt}"
-    answer = generate_answer()
+  def play, do: play(generate_answer(), 1)
+
+  def play(answer, attempt) do
     user_input = String.trim IO.gets "Enter a 5-letter word: "
 
-    IO.puts "INPUT, ANSWER => #{user_input}, #{answer}"
-
     if attempt < 5 do
-      play(attempt + 1)
-    else
-      IO.puts "You lose!"
-      IO.puts "The correct answer was #{answer}"
-    end
-    # feedback(answer, user_input)
-  end
-
-  def feedback(answer, user_input) do
-    user_input = String.graphemes(user_input)
-
-    Enum.reduce(user_input, fn str, acc ->
-      cond do
-        answer =~ str -> IO.ANSI.yellow() <> str
-        true -> acc <> IO.ANSI.light_black() <> str
+      result = calculate_guess(answer, user_input)
+      if result == [:grey, :green, :green, :green, :green] do
+        IO.puts "You win."
+      else
+        play(answer, attempt + 1)
       end
-    end)
+    else
+      IO.puts """
+        You lose!
+        The correct answer was '#{answer}'
+      """
+    end
   end
 
-  defp generate_answer do
+  def calculate_guess(answer, user_input) do
+    IO.puts answer
+    IO.puts user_input
+
+    # input_enum = String.graphemes(user_input)
+    # answer_enum = String.graphemes(answer)
+
+    [:grey, :green, :green, :green, :green]
+
+    # IO.ANSI.yellow()
+    # IO.ANSI.light_black()
+  end
+
+  def generate_answer do
     Enum.random([
       "toast",
       "tarts",
