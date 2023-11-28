@@ -23,7 +23,11 @@ defmodule Games.Wordle do
     end
   end
 
-  def calculate_guess(_answer_list, _user_input) do
+  def calculate_guess(answer_list, user_input) do
+    user_input =
+      check_green(answer_list, user_input)
+      check_yellow(answer_list, user_input)
+      check_grey(answer_list, user_input)
   end
 
   def check_green(answer_list, user_input) do
@@ -37,6 +41,7 @@ defmodule Games.Wordle do
     end)
   end
 
+  @spec check_yellow(any(), any()) :: any()
   def check_yellow(answer_list, user_input) do
     {_, output} =
       user_input
