@@ -30,9 +30,10 @@ defmodule WordleTest do
   end
 
   test "Check Yellow" do
-     assert Games.Wordle.check_yellow(["a", "b", "b", "b", "b"], ["c", "c", "a", "c", "c"]) == ["c", "c", :yellow, "c", "c"]
-     assert Games.Wordle.check_yellow(["a", "b", "b", "b", "b"], ["c", "c", "a", "a", "c"]) == ["c", "c", :yellow, "a", "c"]
-     assert Games.Wordle.check_yellow(["a", "b", "b", "b", "a"], ["c", "c", "a", "a", "c"]) == ["c", "c", :yellow, :yellow, "c"]
+    assert Games.Wordle.check_yellow(["a", "b", "b", "b", "b"], ["d", "c", "a", "c", "c"]) == ["d", "c", :yellow, "c", "c"]
+    assert Games.Wordle.check_yellow(["a", "b", "b", "b", "b"], ["c", "c", "a", "c", "c"]) == ["c", "c", :yellow, "c", "c"]
+    assert Games.Wordle.check_yellow(["a", "b", "b", "b", "b"], ["c", "c", "a", "a", "c"]) == ["c", "c", :yellow, "a", "c"]
+    assert Games.Wordle.check_yellow(["a", "b", "b", "b", "a"], ["c", "c", "a", "a", "c"]) == ["c", "c", :yellow, :yellow, "c"]
   end
 
   test "Check Gray" do

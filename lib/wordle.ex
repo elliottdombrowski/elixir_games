@@ -23,14 +23,7 @@ defmodule Games.Wordle do
     end
   end
 
-  def calculate_guess(answer_list, user_input) do
-    Enum.map(user_input, fn x ->
-      # if Enum.member?(answer_list, x) do
-      #   :green
-      # else
-      #   :grey
-      # end
-    end)
+  def calculate_guess(_answer_list, _user_input) do
   end
 
   def check_green(answer_list, user_input) do
@@ -45,19 +38,23 @@ defmodule Games.Wordle do
   end
 
   def check_yellow(answer_list, user_input) do
-    Enum.map(user_input, fn u ->
-      if Enum.member?(answer_list, u) and is_bitstring u do
-        :yellow
-      else
-        u
-      end
-    end)
+    {_, output} =
+      user_input
+      |> Enum.reduce({answer_list, []}, fn u, {updated_answer_list, output_list} ->
+        if u in updated_answer_list do
+          {List.delete(updated_answer_list, u), output_list ++ [:yellow]}
+        else
+          {updated_answer_list, output_list ++ [u]}
+        end
+      end)
+
+    output
   end
 
   def check_grey(_answer_list, user_input) do
     Enum.map(user_input, fn u ->
       # Default any non-green / yellow items to :grey
-      if is_atom u do
+      if is_atom(u) do
         u
       else
         :grey
