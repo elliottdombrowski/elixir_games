@@ -22,8 +22,10 @@ defmodule Games.MixProject do
   defp deps do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-      {:ex_doc, "~> 0.29", only: :dev, runtime: false} # DOCUMENTATION
+      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
+      {:ex_doc, "~> 0.29", only: :dev, runtime: false}, # DOCUMENTATION
+      {:dialyxir, "~> 1.3", only: :dev, runtime: false}, # STATIC ANALYSIS - WARNINGS, MISMATCHED TYPES, UNREACHABLE CODE
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false} # STATIC ANALYSIS - CODE CONSISTENCY, SCANS FOR ANTI-PATTERNS
     ]
   end
 end
