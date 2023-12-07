@@ -9,9 +9,9 @@ defmodule Games.Wordle do
 
     if attempt < 5 do
       result = calculate_guess(answer_list, user_input)
-      IO.inspect _formatted_response = format_response(user_input, result)
+      formatted_response = format_response(user_input, result)
 
-      # IO.puts "Guess #{attempt} - #{formatted_response}"
+      IO.puts "Guess #{attempt} - #{formatted_response}"
 
       if result == [:green, :green, :green, :green, :green] do
         IO.puts("You win")
